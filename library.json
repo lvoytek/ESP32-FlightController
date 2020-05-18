@@ -1,0 +1,18 @@
+{
+	"name": "ESP32 Flight Controller",
+	"authors":
+	{
+    	"name": "Lena Voytek",
+    	"email": "lena@ieee.org",
+    	"url": "https://lvoytek.org/contact"
+	},
+	"keywords": "flight, aircraft, esc, accelerometer, drone, RC, controller",
+	"description": "A library for using an ESP-32 device as a quadcopter flight controller",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lvoytek/ESP32-FlightController.git"
+	},
+	"version": "1.0",
+	"frameworks": "arduino",
+	"platforms": "*"
+}

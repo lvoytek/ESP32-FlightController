@@ -1,0 +1,25 @@
+#######################################
+# Syntax Coloring Map For Flight Control Emulator
+#######################################
+
+#######################################
+# Types (KEYWORD1)
+#######################################
+
+FlightController	KEYWORD1
+ESCController		KEYWORD1
+AccelController     KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+takeoff	    KEYWORD2
+trim	    KEYWORD2
+setSpeed    KEYWORD2
+
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
