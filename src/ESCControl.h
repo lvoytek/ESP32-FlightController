@@ -20,12 +20,12 @@
 * SOFTWARE.
 */
 
-#ifndef FLIGHTCONTROLLER_H
-#define FLIGHTCONTROLLER_H
+#ifndef ESCCONTROL_H
+#define ESCCONTROL_H
 
-#include "ESCControl.h"
+#include <driver/mcpwm.h>
 
-class FlightController
+class ESCControl
 {
 
 };

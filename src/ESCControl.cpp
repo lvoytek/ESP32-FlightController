@@ -20,14 +20,5 @@
 * SOFTWARE.
 */
 
-#ifndef FLIGHTCONTROLLER_H
-#define FLIGHTCONTROLLER_H
-
 #include "ESCControl.h"
 
-class FlightController
-{
-
-};
-
-#endif
