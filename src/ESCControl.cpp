@@ -34,6 +34,37 @@ ESCControl::ESCControl(int escPin, mcpwm_unit_t pwmUnit, mcpwm_timer_t pwmTimer)
 	this->confData.cmpr_b = 0.0;
 	this->confData.duty_mode = MCPWM_DUTY_MODE_0;
 	this->confData.counter_mode = MCPWM_UP_COUNTER;
+
+	switch(pwmTimer)
+	{
+		case MCPWM_TIMER_0:
+			this->mcpwmSignal = MCPWM0A;
+			break;
+		
+		case MCPWM_TIMER_1:
+			this->mcpwmSignal = MCPWM1A;
+			break;
+
+		default:
+			this->mcpwmSignal = MCPWM2A;
+	}
+}
+
+bool ESCControl::init()
+{
+	//Associate timer on given unit with the ESC GPIO pin
+	if(mcpwm_gpio_init(this->pwmUnit, this->mcpwmSignal, this->escPin) != ESP_OK)
+		return false;
+
+	//Setup timer configuration
+	if(mcpwm_init(this->pwmUnit, this->pwmTimer, &this->confData) != ESP_OK)
+		return false;
+
+	//Set the default frequency
+	if (mcpwm_set_frequency(this->pwmUnit, this->pwmTimer, ESC_DEFAULT_FREQUENCY_HZ) != ESP_OK)
+		return false;
+
+	return true;
 }
 
 bool ESCControl::setRPMPercentage(float rpmPercentage)
