@@ -67,6 +67,9 @@ protected:
 	//The active duty percentage for this ESC
 	float activeDuty;
 
+	//The timer + operator being used for this ESC
+	mcpwm_io_signals_t mcpwmSignal;
+
 public:
 	/**
 	 * @brief Setup specified PWM pin using a given MCPWM unit and timer 
@@ -79,7 +82,7 @@ public:
 
 	/**
 	 * @brief Initialize the mcpwm unit and prepare for gpio output use
-	 * 
+
 	 * @return
 	 *     - true Initialization successful
 	 *     - false MCPWMn failure
