@@ -25,9 +25,54 @@
 
 #include "ESCControl.h"
 
+#define NUM_MOTORS 4
+#define FRONT_LEFT_MOTOR 0
+#define FRONT_RIGHT_MOTOR 1
+#define BACK_LEFT_MOTOR 2
+#define BACK_RIGHT_MOTOR 3
+
 class FlightController
 {
+protected:
+	ESCControl escs[NUM_MOTORS];
 
+public:
+	/**
+	 * @brief Initialize the ESCs and the accelerometer objects
+	 * 
+	 * @param frontLeftMotorPin The ESC PWM pin for controlling the front left motor
+	 * @param frontRightMotorPin The ESC PWM pin for controlling the front right motor
+	 * @param backLeftMotorPin The ESC PWM pin for controlling the back left motor
+	 * @param backRightMotorPin The ESC PWM pin for controlling the back right motor
+	 */
+	FlightController(int frontLeftMotorPin, int frontRightMotorPin, int backLeftMotorPin, int backRightMotorPin);
+
+	/**
+	 * @brief Initialize ESC PWM connections and start the I2C accelerometer connection
+	 * 
+	 * @return
+	 *     - true Successful start
+	 *     - false Activation failed
+	 */
+	bool init();
+
+	/**
+	 * @brief Arm the motors
+	 * 
+	 * @return
+	 * 		- true Successful arming
+	 * 		- false motors are still disarmed
+	 */
+	bool arm();
+
+	/**
+	 * @brief Kill motor movement
+	 * 
+	 * @return
+	 * 		- true all motors killed
+	 * 		- false some motors still armed
+	 */
+	bool kill();
 };
 
 #endif
