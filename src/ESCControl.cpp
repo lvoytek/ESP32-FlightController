@@ -67,6 +67,16 @@ bool ESCControl::init()
 	return true;
 }
 
+bool ESCControl::start()
+{
+	return mcpwm_start(this->pwmUnit, this->pwmTimer) == ESP_OK;
+}
+
+bool ESCControl::stop()
+{
+	return (mcpwm_set_duty(this->pwmUnit, this->pwmTimer, MCPWM_OPR_A, 0) == ESP_OK) && (mcpwm_stop(this->pwmUnit, this->pwmTimer) == ESP_OK);
+}
+
 bool ESCControl::setRPMPercentage(float rpmPercentage)
 {
 	if(rpmPercentage > 100)
