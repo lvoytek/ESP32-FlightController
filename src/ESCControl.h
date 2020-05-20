@@ -25,9 +25,95 @@
 
 #include <driver/mcpwm.h>
 
+#define ESC_DEFAULT_PERIOD_S .02
+#define ESC_DEFAULT_FREQUENCY_HZ 50
+#define ESC_DEFAULT_MIN_DUTY 5
+#define ESC_DEFAULT_MAX_DUTY 10
+
+/**
+ * @brief Enumeration of MCPWM capable pins on the Adafruit ESP32 Feather
+ */
+typedef enum
+{
+	PIN_A0 = 26,
+	PIN_A1 = 25,
+	PIN_A5 = 4,
+	PIN_21 = 21,
+	PIN_13 = 13,
+	PIN_12 = 12,
+	PIN_27 = 27,
+	PIN_33 = 33,
+	PIN_15 = 15,
+	PIN_32 = 32,
+	PIN_14 = 14
+} esp32_feather_pwm_capable_pins;
+
+
 class ESCControl
 {
+protected:
+	//The number of the GPIO pin using PWM control on the ESC
+	int escPin;
 
+	//ESP-32 motor PWM unit used to control this pin
+	mcpwm_unit_t pwmUnit;
+
+	//The number of the PWM Timer used on the given pwm unit (use unique timer for each ESC, operator A always used)
+	mcpwm_timer_t pwmTimer;
+
+	//The configuration settings for the PWM unit
+	mcpwm_config_t confData;
+
+	//The active duty percentage for this ESC
+	float activeDuty;
+
+public:
+	/**
+	 * @brief Setup specified PWM pin using a given MCPWM unit and timer 
+	 * 
+	 * @param escPin The GPIO pin to send PWM signals through
+	 * @param pwmUnit The MCPWM unit to use for timing for this ESC
+	 * @param pwmTimer The MCPWM timer to use
+	 */
+	ESCControl(int escPin, mcpwm_unit_t pwmUnit, mcpwm_timer_t pwmTimer);
+
+	/**
+	 * @brief Initialize the mcpwm unit and prepare for gpio output use
+	 * 
+	 * @return
+	 *     - true Initialization successful
+	 *     - false MCPWMn failure
+	 */
+	bool init();
+
+	/**
+	 * @brief Activate the PWM output in current configuration
+	 * 
+	 * @return
+	 *     - true Successful start
+	 *     - false Activation failed
+	 */
+	bool start();
+
+	/**
+	 * @brief Deactivate all PWM outputs in current configuration
+	 * 
+	 * @return
+	 *     - true Successful stop
+	 *     - false Deactivation failed
+	 */
+	bool stop();
+
+	/**
+	 * @brief Set the RPM percentage
+	 * 
+	 * @param rpmPercentage The speed percentage to set the motor to, 0 is off and 100 is max
+	 * 
+	 * @return
+	 *      - true Successful speed change
+	 *      - false Speed change failed
+	 */
+	bool setRPMPercentage(float rpmPercentage);
 };
 
 #endif

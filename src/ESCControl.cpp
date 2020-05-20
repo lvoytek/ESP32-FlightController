@@ -22,3 +22,26 @@
 
 #include "ESCControl.h"
 
+bool ESCControl::setRPMPercentage(float rpmPercentage)
+{
+	if(rpmPercentage > 100)
+		rpmPercentage = 100.0;
+	else if(rpmPercentage < 0)
+		rpmPercentage = 0.0;
+
+	float previousActiveDuty = this->activeDuty;
+
+	//Turn off completely on 0 input
+	if(rpmPercentage < .01)
+		this->activeDuty = 0;
+	else
+		this->activeDuty = (ESC_DEFAULT_MAX_DUTY - ESC_DEFAULT_MIN_DUTY) * .01 * rpmPercentage + ESC_DEFAULT_MIN_DUTY;
+
+	if (mcpwm_set_duty(this->pwmUnit, this->pwmTimer, MCPWM_OPR_A, this->activeDuty) != ESP_OK)
+	{
+		this->activeDuty = previousActiveDuty;
+		return false;
+	}
+
+	return true;
+}
