@@ -34,7 +34,7 @@
 class FlightController
 {
 protected:
-	ESCControl escs[NUM_MOTORS];
+	ESCControl * escs[NUM_MOTORS];
 
 public:
 	/**

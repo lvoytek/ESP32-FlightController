@@ -21,3 +21,44 @@
 */
 
 #include "FlightController.h"
+
+FlightController::FlightController(int frontLeftMotorPin, int frontRightMotorPin, int backLeftMotorPin, int backRightMotorPin)
+{
+	this->escs[FRONT_LEFT_MOTOR] = new ESCControl(frontLeftMotorPin, MCPWM_UNIT_0, MCPWM_TIMER_0);
+	this->escs[FRONT_RIGHT_MOTOR] = new ESCControl(frontRightMotorPin, MCPWM_UNIT_0, MCPWM_TIMER_1);
+	this->escs[BACK_LEFT_MOTOR] = new ESCControl(backLeftMotorPin, MCPWM_UNIT_1, MCPWM_TIMER_0);
+	this->escs[BACK_RIGHT_MOTOR] = new ESCControl(backRightMotorPin, MCPWM_UNIT_1, MCPWM_TIMER_1);
+}
+
+bool FlightController::init()
+{
+	for(int i = 0; i < NUM_MOTORS; i++)
+	{
+		if(!this->escs[i]->init())
+			return false;
+	}
+
+	return true;
+}
+
+bool FlightController::arm()
+{
+	for(int i = 0; i < NUM_MOTORS; i++)
+	{
+		if(!this->escs[i]->start())
+			return false;
+	}
+
+	return true;
+}
+
+bool FlightController::kill()
+{
+	for(int i = 0; i < NUM_MOTORS; i++)
+	{
+		if(!this->escs[i]->stop())
+			return false;
+	}
+
+	return true;
+}
