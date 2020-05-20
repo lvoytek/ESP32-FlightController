@@ -22,6 +22,20 @@
 
 #include "ESCControl.h"
 
+ESCControl::ESCControl(int escPin, mcpwm_unit_t pwmUnit, mcpwm_timer_t pwmTimer)
+{
+	this->escPin = escPin;
+	this->pwmUnit = pwmUnit;
+	this->pwmTimer = pwmTimer;
+	this->activeDuty = 0;
+
+	this->confData.frequency = ESC_DEFAULT_FREQUENCY_HZ;
+	this->confData.cmpr_a = 0.0;
+	this->confData.cmpr_b = 0.0;
+	this->confData.duty_mode = MCPWM_DUTY_MODE_0;
+	this->confData.counter_mode = MCPWM_UP_COUNTER;
+}
+
 bool ESCControl::setRPMPercentage(float rpmPercentage)
 {
 	if(rpmPercentage > 100)
