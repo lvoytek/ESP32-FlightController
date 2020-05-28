@@ -23,7 +23,27 @@
 #ifndef ACCELEROMETER_H
 #define ACCELEROMETER_H
 
+#include "Accelerometers/BaseAccelerometer.h"
+
+/**
+ * @brief Accelerometer class supports the following sensors when specified
+ */
+typedef enum
+{
+	MPU6050 = 0
+} SupportedSensor;
 
 
+class Accelerometer
+{
+protected:
+
+	BaseAccelerometer * accel;
+	SupportedSensor sensorType;
+
+public:
+
+	Accelerometer(SupportedSensor sensorType);
+};
 
 #endif

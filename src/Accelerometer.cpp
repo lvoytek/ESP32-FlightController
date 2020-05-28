@@ -21,3 +21,13 @@
 */
 
 #include "Accelerometer.h"
+
+Accelerometer::Accelerometer(SupportedSensor sensorType)
+{
+	this->sensorType = sensorType;
+
+	/*switch(sensorType)
+	{
+		case MPU6050:
+	}*/
+}
