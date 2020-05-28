@@ -32,19 +32,19 @@ class BaseAccelerometer
 {
 protected:
 
-    //The I2C address of the accelerometer
-    uint8_t address;
+	//The I2C address of the accelerometer
+	uint8_t address;
 
 public:
-    /**
-     * @brief Initialize an accelerometer object with a given I2C address
-     *
-     * @param address The I2C address of the sensor
-     */
-     BaseAccelerometer(uint8_t address)
-     {
-        this->address = address;
-     };
+	/**
+	 * @brief Initialize an accelerometer object with a given I2C address
+	 *
+	 * @param address The I2C address of the sensor
+	 */
+	 BaseAccelerometer(uint8_t address)
+	 {
+		this->address = address;
+	 };
 
 	/**
 	 * @brief Activate the I2C connection with the accelerometer
@@ -53,24 +53,67 @@ public:
 	 * 		- true accelerometer activated
 	 * 		- accelerometer unavailable
 	 */
-    virtual bool begin();
+	virtual bool begin();
 
-    /**
-     * @brief Read a byte from the accelerometer at a given register
-     *
-     * @param reg The register location to read from
-     *
-     * @return The byte stored in the given accelerometer register
-     */
-    virtual uint8_t read(uint8_t reg);
-    
-    /**
-     * @brief Write a byte to an accelerometer register
-     *
-     * @param reg The register location to write to
-     * @param data The byte to write to the register
-     */
-    virtual void write(uint8_t reg, uint8_t data);
+	/**
+	 * @brief Read a byte from the accelerometer at a given register
+	 *
+	 * @param reg The register location to read from
+	 *
+	 * @return The byte stored in the given accelerometer register
+	 */
+	virtual uint8_t read(uint8_t reg);
+	
+	/**
+	 * @brief Write a byte to an accelerometer register
+	 *
+	 * @param reg The register location to write to
+	 * @param data The byte to write to the register
+	 */
+	virtual void write(uint8_t reg, uint8_t data);
+
+	/**
+	 * @brief Read the current pitch angle in degrees
+	 *
+	 * @return The current pitch in degrees
+	 */
+	virtual float readPitch();
+
+	/**
+	 * @brief Read the current roll angle in degrees
+	 *
+	 * @return The current roll angle in degrees
+	 */
+	virtual float readRoll();
+
+	/**
+	 * @brief Read the current yaw offset from startup in degrees
+	 *
+	 * @return The current yaw angle in degrees
+	 */
+	virtual float readYaw();
+
+	/**
+	 * @brief Read the current forward acceleration (Gs)
+	 *
+	 * @return The current forward acceleration as compared to 1G
+	 */
+	virtual float readAccelX();
+
+	/**
+	 * @brief Read the current left-right acceleration (Gs)
+	 *
+	 * @return The current left-right acceleration as compared to 1G (left is positive)
+	 */
+	virtual float readAccelY();
+
+	/**
+	 * @brief Read the current upward acceleration (Gs)
+	 *
+	 * @return The current upward acceleration as compared to 1G
+	 */
+	virtual float readAccelZ();
+
 };
 
 #endif
