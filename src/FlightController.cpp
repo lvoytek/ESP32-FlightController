@@ -62,3 +62,14 @@ bool FlightController::kill()
 
 	return true;
 }
+
+bool FlightController::throttleAll(float speed)
+{
+	for(uint8_t i = 0; i < NUM_MOTORS; i++)
+	{
+		if(!this->escs[i]->setRPMPercentage(speed))
+			return false;
+	}
+
+	return true;
+}
